@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-11-12T16:07:46+0100",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.40.0.v20240919-1711, environment: Java 17.0.12 (Eclipse Adoptium)"
+    date = "2024-11-12T16:33:29+0100",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.4 (Oracle Corporation)"
 )
 @Component
 public class ProjetMapperImpl implements ProjetMapper {
 
     @Override
-    public ProjetDTO toDTO(Product product) {
+    public ProjetDTO productToProjetDTO(Product product) {
         if ( product == null ) {
             return null;
         }
@@ -27,7 +27,7 @@ public class ProjetMapperImpl implements ProjetMapper {
     }
 
     @Override
-    public Product toEntity(ProjetDTO projetDTO) {
+    public Product projetDTOToProduct(ProjetDTO projetDTO) {
         if ( projetDTO == null ) {
             return null;
         }

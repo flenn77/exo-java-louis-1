@@ -1,12 +1,17 @@
 package com.exo1.exo1.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "orders")
+@Data // Lombok : génère automatiquement les getters, setters, equals, hashCode, et toString
+@NoArgsConstructor // Lombok : génère un constructeur sans arguments
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,12 +25,4 @@ public class Order {
 
     @Column(nullable = false)
     private Date orderDate;
-
-    // Getters et Setters
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

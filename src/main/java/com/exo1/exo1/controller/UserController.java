@@ -17,47 +17,47 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
-    private final UserMapper UserMapper;
+    private final UserMapper userMapper; // Pas de majuscule ici, c'est une convention
 
     @Autowired
-    public UserController(UserService userService, UserMapper UserMapper) {
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
-        this.UserMapper = UserMapper;
+        this.userMapper = userMapper; // Utiliser la bonne variable
     }
 
     @GetMapping
     public List<UserDTO> getAllUtilisateurs() {
         return userService.findAll()
                 .stream()
-                .map(UserMapper::userToUserDTO)
+                .map(userMapper::userToUserDTO) // Correction ici
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUtilisateurById(@PathVariable Long id) {
         return userService.findById(id)
-                .map(UserMapper::userToUserDTO)
+                .map(userMapper::userToUserDTO) // Correction ici
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUtilisateur(@RequestBody UserDTO UserDTO) {
-        User user = UserMapper.UserDTOToUser(UserDTO);
+    public ResponseEntity<UserDTO> createUtilisateur(@RequestBody UserDTO userDTO) {
+        User user = userMapper.userDTOToUser(userDTO); // Correction ici
         User createdUser = userService.save(user);
-        UserDTO createdUserDTO = UserMapper.userToUserDTO(createdUser);
+        UserDTO createdUserDTO = userMapper.userToUserDTO(createdUser); // Correction ici
         return new ResponseEntity<>(createdUserDTO, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUtilisateur(@PathVariable Long id, @RequestBody UserDTO UserDTO) {
+    public ResponseEntity<UserDTO> updateUtilisateur(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         if (!userService.findById(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        User user = UserMapper.UserDTOToUser(UserDTO);
+        User user = userMapper.userDTOToUser(userDTO);
         user.setId(id);
         User updatedUser = userService.save(user);
-        UserDTO updatedUserDTO = UserMapper.userToUserDTO(updatedUser);
+        UserDTO updatedUserDTO = userMapper.userToUserDTO(updatedUser);
         return ResponseEntity.ok(updatedUserDTO);
     }
 

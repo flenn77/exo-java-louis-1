@@ -1,11 +1,16 @@
 package com.exo1.exo1.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
+@Data // Lombok : génère automatiquement les getters, setters, equals, hashCode, et toString
+@NoArgsConstructor // Lombok : génère un constructeur sans arguments
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,30 +21,8 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal price;
 
-    // Getters et Setters
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public BigDecimal getPrice() {
-        return price;
-    }
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+    // La méthode calculée pour `total`, qui retourne simplement le prix.
     public BigDecimal getTotal() {
         return price;
     }
-    public void setTotal(BigDecimal total) {
-        this.price = total;
-    }
-
 }
